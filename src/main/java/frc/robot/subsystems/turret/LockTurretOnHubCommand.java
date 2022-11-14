@@ -38,10 +38,10 @@ public class LockTurretOnHubCommand extends CommandBase {
                 currentSign = -1;
             }
 
-            turret.rotateTo(currentSign * 10);
+            turret.rotateBy(currentSign * 10);
         }
 
-        turret.rotateTo(Conversions.pixelsToDegrees(positionSupplier.getAsDouble(), TurretConstants.PIXELS_PER_DEGREE) + targetSupplier.getAsDouble());
+        turret.rotateBy(Conversions.pixelsToDegrees(positionSupplier.getAsDouble(), TurretConstants.PIXELS_PER_DEGREE) + targetSupplier.getAsDouble());
     }
 
     @Override

@@ -25,8 +25,8 @@ public class Turret extends SubsystemBase {
      *
      * @param degrees the degrees to turn the robot by
      */
-    void rotateTo(double degrees) {
-        setDegrees(degrees + getCurrentDegrees());
+    void rotateBy(double degrees) {
+        rotateTo(degrees + getCurrentDegrees());
     }
 
     /**
@@ -36,9 +36,9 @@ public class Turret extends SubsystemBase {
      *
      * @param degrees the wanted degrees
      */
-    void setDegrees(double degrees) {
+    void rotateTo(double degrees) {
         if (willHitLimit(0, degrees)) {
-            degrees = Conversions.rotationToOppositeRotation(degrees);
+            degrees = Conversions.rotationToRawRotation(degrees);
         }
 
         final double givenDegreesToPosition = Conversions.systemPositionToMotorPosition(Conversions.degreesToFalconTicks(degrees), TurretConstants.GEAR_RATIO);

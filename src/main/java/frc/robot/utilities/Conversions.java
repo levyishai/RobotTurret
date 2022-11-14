@@ -5,24 +5,6 @@ public class Conversions {
     private static final double FALCON_TICKS_PER_REVOLUTION = 2048;
 
     /**
-     * Converts voltage to compensated power.
-     * <p>
-     * The voltage compensation saturation will determine what voltage represents 100% output.
-     * <p>
-     * The compensated power is the power resulting from turning the voltage off and on without stopping.
-     * In order to find the compensated power we have to divide the voltage by the voltage compensation
-     * saturation.
-     * //TODO: clear this up
-     *
-     * @param voltage                       the voltage of the loader
-     * @param voltageCompensationSaturation the saturation of the compensation
-     * @return the compensated power resulting from turning the voltage off and on without stopping
-     */
-    public static double voltageToCompensatedPower(double voltage, double voltageCompensationSaturation) {
-        return voltage / voltageCompensationSaturation;
-    }
-
-    /**
      * Converts a system position to a motor position by multiplying the system position by the gear ratio.
      *
      * @param position  the system position
@@ -91,10 +73,17 @@ public class Conversions {
      * @param rotation the rotation
      * @return the opposite rotation
      */
-    public static double rotationToOppositeRotation(double rotation) {
-        return rotation + (-DEGREES_PER_REVOLUTIONS * Math.signum(rotation));
+    public static double rotationToRawRotation(double rotation) {
+        return rotation % DEGREES_PER_REVOLUTIONS;
     }
 
+    /**
+     * Converts pixels to degrees by dividing the pixels by the pixels per degree.
+     *
+     * @param pixels          the pixels
+     * @param pixelsPerDegree the pixels per degree
+     * @return the pixels in degrees
+     */
     public static double pixelsToDegrees(double pixels, double pixelsPerDegree) {
         return pixels / pixelsPerDegree;
     }
