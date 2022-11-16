@@ -21,7 +21,7 @@ public class Turret extends SubsystemBase {
     /**
      * Rotates the turret by the given degrees.
      * If the given degrees + the current degrees will hit the turret's limit,
-     * the turret will turn to the same degrees in the opposite direction.
+     * the turret will turn to the raw degrees.
      *
      * @param degrees the degrees to turn the robot by
      */
@@ -30,9 +30,9 @@ public class Turret extends SubsystemBase {
     }
 
     /**
-     * Sets the turret's current degrees to the given degrees.
+     * Rotates the turret to the given degrees.
      * If the given degrees will hit the turret's limit,
-     * the turret will turn to the same degrees in the opposite direction.
+     * the turret will turn to the raw degrees.
      *
      * @param degrees the wanted degrees
      */
