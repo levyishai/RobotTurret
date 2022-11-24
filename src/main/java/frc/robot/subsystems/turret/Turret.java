@@ -11,7 +11,6 @@ public class Turret extends SubsystemBase {
     private final WPI_TalonFX motor = TurretConstants.MOTOR;
 
     private Turret() {
-
     }
 
     public static Turret getInstance() {
@@ -34,20 +33,20 @@ public class Turret extends SubsystemBase {
      * If the given degrees will hit the turret's limit,
      * the turret will turn to the raw degrees.
      *
-     * @param degrees the wanted degrees
+     * @param degrees the degrees to turn the turret to
      */
     void rotateTo(double degrees) {
         if (willHitLimit(0, degrees)) {
             degrees = Conversions.rotationToRawRotation(degrees);
         }
 
-        final double givenDegreesToPosition = Conversions.systemPositionToMotorPosition(Conversions.degreesToFalconTicks(degrees), TurretConstants.GEAR_RATIO);
+        final double givenDegreesToTicks = Conversions.systemPositionToMotorPosition(Conversions.degreesToFalconTicks(degrees), TurretConstants.GEAR_RATIO);
 
-        motor.set(ControlMode.Position, givenDegreesToPosition);
+        motor.set(ControlMode.Position, givenDegreesToTicks);
     }
 
     /**
-     * @return the current degrees of the turret
+     * @return the current degrees of the turret`
      */
     double getCurrentDegrees() {
         return Conversions.motorPositionToSystemPosition(Conversions.falconTicksToDegrees(motor.getSelectedSensorPosition()), TurretConstants.GEAR_RATIO);

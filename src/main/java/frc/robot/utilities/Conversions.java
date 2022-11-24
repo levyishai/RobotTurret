@@ -77,15 +77,4 @@ public class Conversions {
         return rotation % DEGREES_PER_REVOLUTIONS;
     }
 
-    /**
-     * Converts pixels to degrees by dividing the pixels by the pixels per degree.
-     *
-     * @param pixels          the pixels
-     * @param pixelsPerDegree the pixels per degree
-     * @return the pixels in degrees
-     */
-    public static double pixelsToDegrees(double pixels, double pixelsPerDegree) {
-        return pixels / pixelsPerDegree;
-    }
-
 }
