@@ -2,7 +2,6 @@ package frc.robot.subsystems.turret;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import java.util.function.BooleanSupplier;
@@ -18,7 +17,7 @@ public class LockTurretOnHubCommand extends CommandBase {
     private final BooleanSupplier hasTargetSupplier;
     private final Supplier<Pose2d> turretPoseSupplier;
     private final Pose2d hubPose =
-            new Pose2d(Units.inchesToMeters(54 * 12) / 2, Units.inchesToMeters(27 * 12) / 2, new Rotation2d());
+            new Pose2d(TurretConstants.HUB_X, TurretConstants.HUB_Y, new Rotation2d());
     private int currentSign = 1;
 
     /**

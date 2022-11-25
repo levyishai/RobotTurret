@@ -13,6 +13,9 @@ public class TurretConstants {
     static final double GEAR_RATIO = 5;
     static final WPI_TalonFX MOTOR = new WPI_TalonFX(MOTOR_ID);
     static final double DEGREES_LIMIT = 400;
+    static final double
+            HUB_X = 8.2296,
+            HUB_Y = 0.5121;
 
     static {
         MOTOR.setInverted(MOTOR_INVERTED);
