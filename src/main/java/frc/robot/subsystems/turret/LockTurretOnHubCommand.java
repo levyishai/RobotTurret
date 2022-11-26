@@ -4,7 +4,6 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 
@@ -14,22 +13,16 @@ import java.util.function.Supplier;
 public class LockTurretOnHubCommand extends CommandBase {
     private final Turret turret = Turret.getInstance();
     private final DoubleSupplier targetSupplier;
-    private final BooleanSupplier hasTargetSupplier;
     private final Supplier<Pose2d> turretPoseSupplier;
-    private final Pose2d hubPose =
-            new Pose2d(TurretConstants.HUB_X, TurretConstants.HUB_Y, new Rotation2d());
-    private int currentSign = 1;
+    private final Pose2d hubPose = TurretConstants.HUB_POSE;
 
     /**
      * Constructs a new LockTurretOnHubCommand.
      *
-     * @param hasTargetSupplier whether the turret has a target
      * @param targetSupplier    the wanted degree supplier
      * @param robotPoseSupplier the position of the robot
      */
-    public LockTurretOnHubCommand(BooleanSupplier hasTargetSupplier,
-                                  DoubleSupplier targetSupplier, Supplier<Pose2d> robotPoseSupplier) {
-        this.hasTargetSupplier = hasTargetSupplier;
+    public LockTurretOnHubCommand(DoubleSupplier targetSupplier, Supplier<Pose2d> robotPoseSupplier) {
         this.targetSupplier = targetSupplier;
         this.turretPoseSupplier = () -> new Pose2d(robotPoseSupplier.get().getTranslation(),
                 Rotation2d.fromDegrees(turret.getCurrentDegrees()));
@@ -41,15 +34,7 @@ public class LockTurretOnHubCommand extends CommandBase {
     public void execute() {
         final Pose2d turretPoseRelativeToHubPose = turretPoseSupplier.get().relativeTo(hubPose);
 
-        if (!hasTargetSupplier.getAsBoolean()) {
-            if (turret.willHitLimit(turret.getCurrentDegrees(), currentSign * 10)) {
-                currentSign = -1;
-            }
-
-            turret.rotateBy(currentSign * 10);
-        }
-
-        turret.rotateBy(turretPoseRelativeToHubPose.getRotation().getDegrees() + targetSupplier.getAsDouble());
+        turret.rotateBy((turretPoseRelativeToHubPose.getRotation().getDegrees() * -1) + targetSupplier.getAsDouble());
     }
 
     @Override

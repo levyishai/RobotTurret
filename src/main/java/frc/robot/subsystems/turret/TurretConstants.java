@@ -1,6 +1,8 @@
 package frc.robot.subsystems.turret;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 
 public class TurretConstants {
     static final double VOLTAGE_COMPENSATION_SATURATION = 10;
@@ -16,6 +18,7 @@ public class TurretConstants {
     static final double
             HUB_X = 8.2296,
             HUB_Y = 0.5121;
+    static final Pose2d HUB_POSE = new Pose2d(HUB_X, HUB_Y, new Rotation2d());
 
     static {
         MOTOR.setInverted(MOTOR_INVERTED);

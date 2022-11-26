@@ -67,14 +67,22 @@ public class Conversions {
     }
 
     /**
-     * Converts a rotation to an opposite rotation,
-     * by subtracting from it the degrees per revolution multiplied by the sign of the rotation.
+     * Converts the given degrees to raw degrees,
+     * by getting its remainder if it's positive, or adding 360 to it until it's negative.
      *
-     * @param rotation the rotation
-     * @return the opposite rotation
+     * @param degrees the degrees
+     * @return the raw degrees
      */
-    public static double rotationToRawRotation(double rotation) {
-        return rotation % DEGREES_PER_REVOLUTIONS;
+    public static double degreesToRawDegrees(double degrees) {
+        if (degrees > 0) {
+            return degrees % DEGREES_PER_REVOLUTIONS;
+        }
+
+        while (degrees < 0) {
+            degrees += 360;
+        }
+
+        return degrees;
     }
 
 }
