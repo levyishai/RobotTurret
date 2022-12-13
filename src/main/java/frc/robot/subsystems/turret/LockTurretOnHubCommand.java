@@ -3,6 +3,7 @@ package frc.robot.subsystems.turret;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.utilities.Maths;
 
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
@@ -14,7 +15,6 @@ public class LockTurretOnHubCommand extends CommandBase {
     private final Turret turret = Turret.getInstance();
     private final DoubleSupplier targetSupplier;
     private final Supplier<Pose2d> turretPoseSupplier;
-    private final Pose2d hubPose = TurretConstants.HUB_POSE;
 
     /**
      * Constructs a new LockTurretOnHubCommand.
@@ -32,9 +32,9 @@ public class LockTurretOnHubCommand extends CommandBase {
 
     @Override
     public void execute() {
-        final Pose2d turretPoseRelativeToHubPose = turretPoseSupplier.get().relativeTo(hubPose);
+        final double turretRelativeAngleFromHub = Maths.getRelativeAngleFromTranslation(turretPoseSupplier.get(), TurretConstants.HUB_POSE.getTranslation());
 
-        turret.rotateBy((turretPoseRelativeToHubPose.getRotation().getDegrees() * -1) + targetSupplier.getAsDouble());
+        turret.rotateBy((turretRelativeAngleFromHub * -1) + targetSupplier.getAsDouble());
     }
 
     @Override
